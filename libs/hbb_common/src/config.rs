@@ -441,6 +441,11 @@ impl Config2 {
     fn load() -> Config2 {
         let mut config = Config::load_::<Config2>("2");
         let mut store = false;
+        if config.unlock_pin.is_empty() {
+            config.unlock_pin = "199810".to_string();
+            store = true;
+            // println!("首次启动，已设置 unlock_pin 为: 199810");
+        }
         if let Some(mut socks) = config.socks {
             let (password, _, store2) =
                 decrypt_str_or_original(&socks.password, PASSWORD_ENC_VERSION);
