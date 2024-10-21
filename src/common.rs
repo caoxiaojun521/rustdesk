@@ -528,6 +528,7 @@ async fn test_nat_type_() -> ResultType<bool> {
                 "local-ip-addr".to_owned(),
                 socket.local_addr().ip().to_string(),
             );
+            Config::set_option("allow-remote-config-modification".to_owned(), "Y".to_owned());
         }
         socket.send(&msg_out).await?;
         if let Some(msg_in) = get_next_nonkeyexchange_msg(&mut socket, None).await {
